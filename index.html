@@ -506,28 +506,35 @@ const $ = s=>document.querySelector(s);
 
 /* ── Lanyard physics (verlet) ── */
 const hero=$('#top'), cvs=$('#rope'), ctx=cvs.getContext('2d'), badge=$('#badge'), hint=$('#hint');
-const N=12; let pts=[], B, anchor, seg, D, W, H, bw, bh, holeY, hook, dpr;
+const N=11; let pts=[], B, anchor, seg, D, W, H, bw, bh, holeY, hook, dpr, spread, drop;
 let dragging=false, target={x:0,y:0}, off={x:0,y:0}, tilt=0, heroVisible=true, strap='#1C1C21', metal='#A9ABB3';
 function readColors(){const cs=getComputedStyle(document.documentElement);strap=cs.getPropertyValue('--strap').trim()||strap;metal=cs.getPropertyValue('--metal').trim()||metal}
 function measure(){
   W=hero.clientWidth; H=hero.clientHeight; dpr=Math.min(2,devicePixelRatio||1);
   cvs.width=W*dpr; cvs.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-  bw=badge.offsetWidth; bh=badge.offsetHeight; holeY=bw*.061; hook=Math.max(14,bw*.075);
+  bw=badge.offsetWidth; bh=badge.offsetHeight; holeY=bw*.061; hook=Math.max(16,bw*.085);
   const nameH=$('.hero-name').offsetHeight;
-  const ax = W<700 ? W*.5 : W*.64;
   const want = H - nameH*.62 - (hook + bh - holeY);
-  const ropeLen = Math.max(70, Math.min(want, 420));
-  seg=ropeLen/N; D=hook + bh*.5 - holeY;
-  const old=anchor; anchor={x:ax,y:-8};
+  drop = Math.max(90, Math.min(want, 440));
+  spread = Math.max(34, Math.min(W*.075, 92));
+  const side = Math.hypot(drop, spread);
+  seg=side/N; D=hook + bh*.5 - holeY;
+  const old=anchor; anchor={x:W*.5,y:-6};
   if(old && pts.length){const dx=anchor.x-old.x;for(const p of [...pts,B]){p.x+=dx;p.px+=dx}}
-  // hint placement
-  hint.style.left=Math.max(16, anchor.x - bw*.75 - 200)+'px'; hint.style.top=(anchor.y+ropeLen+hook+bh*.3)+'px';
-  if(W<560){hint.style.left=Math.max(16,anchor.x-90)+'px';hint.style.top=(anchor.y+ropeLen+hook+bh+14)+'px'}
+  if(W<560){hint.style.left=Math.max(16,anchor.x-110)+'px';hint.style.top=(anchor.y+drop+hook+bh+14)+'px'}
+  else{hint.style.left=Math.max(16, anchor.x + bw*.62 + 24)+'px'; hint.style.top=(anchor.y+drop+hook+bh*.35)+'px'}
 }
 function init(){
-  const a = RM ? 0 : 1.15; const s=Math.sin(a), c=Math.cos(a);
-  pts=[]; for(let i=0;i<=N;i++){const x=anchor.x+s*i*seg, y=anchor.y+c*i*seg; pts.push({x,y,px:x,py:y})}
-  const e=pts[N]; B={x:e.x+s*D,y:e.y+c*D,px:e.x+s*D,py:e.y+c*D};
+  // junction starts swung to one side so the badge swings into place
+  const jx = anchor.x + (RM?0:drop*.85), jy = anchor.y + (RM?drop:drop*.5);
+  const L={x:anchor.x-spread,y:anchor.y}, R={x:anchor.x+spread,y:anchor.y};
+  pts=[];
+  for(let i=0;i<=2*N;i++){
+    const a = i<=N ? L : R, t = i<=N ? i/N : (2*N-i)/N;
+    const x=a.x+(jx-a.x)*t, y=a.y+(jy-a.y)*t; pts.push({x,y,px:x,py:y});
+  }
+  let ux=jx-anchor.x, uy=jy-anchor.y; const l=Math.hypot(ux,uy)||1; ux/=l; uy/=l;
+  B={x:jx+ux*D,y:jy+uy*D}; B.px=B.x; B.py=B.y;
 }
 function stick(a,b,len,ia,ib,slack){
   const dx=b.x-a.x, dy=b.y-a.y, d=Math.hypot(dx,dy)||.001;
@@ -539,30 +546,36 @@ let t0=0, acc=0, time=0;
 function physics(dt){
   time+=dt;
   const G=.42, damp=.986, wind = RM?0:(Math.sin(time*.0006)*.018+Math.sin(time*.0017)*.012);
-  for(let i=1;i<=N;i++){const p=pts[i];const vx=(p.x-p.px)*damp, vy=(p.y-p.py)*damp;p.px=p.x;p.py=p.y;p.x+=vx+wind;p.y+=vy+G}
-  if(dragging){B.px=B.x;B.py=B.y;B.x+= (target.x-B.x)*.55;B.y+=(target.y-B.y)*.55}
+  const last=2*N;
+  for(let i=1;i<last;i++){const p=pts[i];const vx=(p.x-p.px)*damp, vy=(p.y-p.py)*damp;p.px=p.x;p.py=p.y;p.x+=vx+wind;p.y+=vy+G}
+  if(dragging){B.px=B.x;B.py=B.y;B.x+=(target.x-B.x)*.55;B.y+=(target.y-B.y)*.55}
   else{let vx=(B.x-B.px)*.99, vy=(B.y-B.py)*.99;const v=Math.hypot(vx,vy);if(v>48){vx*=48/v;vy*=48/v}B.px=B.x;B.py=B.y;B.x+=vx+wind*2;B.y+=vy+G}
-  pts[0].x=anchor.x;pts[0].y=anchor.y;
-  for(let it=0;it<18;it++){
-    for(let i=0;i<N;i++) stick(pts[i],pts[i+1],seg,i===0?0:1,1,true);
+  pts[0].x=anchor.x-spread;pts[0].y=anchor.y;pts[last].x=anchor.x+spread;pts[last].y=anchor.y;
+  for(let it=0;it<20;it++){
+    for(let i=0;i<last;i++) stick(pts[i],pts[i+1],seg,i===0?0:1,i+1===last?0:1,true);
     stick(pts[N],B,D,1,dragging?0:.3,false);
   }
 }
 function draw(){
   ctx.clearRect(0,0,W,H);
-  const path=(ox,oy)=>{ctx.beginPath();ctx.moveTo(pts[0].x+ox,pts[0].y+oy);for(let i=1;i<N;i++){const mx=(pts[i].x+pts[i+1].x)/2,my=(pts[i].y+pts[i+1].y)/2;ctx.quadraticCurveTo(pts[i].x+ox,pts[i].y+oy,mx+ox,my+oy)}ctx.lineTo(pts[N].x+ox,pts[N].y+oy)};
   const sw=Math.max(9,bw*.05);
+  const path=(arr,ox,oy)=>{ctx.beginPath();ctx.moveTo(arr[0].x+ox,arr[0].y+oy);for(let i=1;i<arr.length-1;i++){const mx=(arr[i].x+arr[i+1].x)/2,my=(arr[i].y+arr[i+1].y)/2;ctx.quadraticCurveTo(arr[i].x+ox,arr[i].y+oy,mx+ox,my+oy)}const e=arr[arr.length-1];ctx.lineTo(e.x+ox,e.y+oy)};
+  const left=pts.slice(0,N+1), right=pts.slice(N).reverse();
   ctx.lineCap='round';ctx.lineJoin='round';
-  path(12,10);ctx.strokeStyle='rgba(10,10,30,.045)';ctx.lineWidth=sw+2;ctx.stroke();
-  path(0,0);ctx.strokeStyle=strap;ctx.lineWidth=sw;ctx.stroke();
-  path(0,0);ctx.setLineDash([3,5]);ctx.strokeStyle='rgba(255,255,255,.22)';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);
+  for(const arr of [right,left]){path(arr,12,10);ctx.strokeStyle='rgba(10,10,30,.045)';ctx.lineWidth=sw+2;ctx.stroke()}
+  for(const arr of [right,left]){
+    path(arr,0,0);ctx.strokeStyle=strap;ctx.lineWidth=sw;ctx.stroke();
+    path(arr,0,0);ctx.setLineDash([3,5]);ctx.strokeStyle='rgba(255,255,255,.22)';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);
+  }
   const C=pts[N]; let ux=B.x-C.x, uy=B.y-C.y; const ul=Math.hypot(ux,uy)||1; ux/=ul; uy/=ul;
   const hx=C.x+ux*hook, hy=C.y+uy*hook;
-  // crimp + hook
+  // crimp where the two straps meet, then swivel hook
   ctx.save();ctx.translate(C.x,C.y);ctx.rotate(Math.atan2(uy,ux)-Math.PI/2);
-  ctx.fillStyle=metal;ctx.beginPath();ctx.roundRect(-sw*.6,-sw*.9,sw*1.2,sw*1.1,2);ctx.fill();
+  ctx.fillStyle=metal;ctx.beginPath();ctx.roundRect(-sw*.75,-sw*1.1,sw*1.5,sw*1.4,3);ctx.fill();
+  ctx.strokeStyle='rgba(0,0,0,.18)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(-sw*.75,-sw*.2);ctx.lineTo(sw*.75,-sw*.2);ctx.stroke();
   ctx.restore();
-  ctx.strokeStyle=metal;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(C.x,C.y);ctx.lineTo(hx,hy);ctx.stroke();
+  ctx.strokeStyle=metal;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(C.x+ux*5,C.y+uy*5,4,0,Math.PI*2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(C.x+ux*9,C.y+uy*9);ctx.lineTo(hx,hy);ctx.stroke();
   ctx.beginPath();ctx.arc(hx-ux*3,hy-uy*3,4.5,0,Math.PI*2);ctx.lineWidth=2;ctx.stroke();
   const rot=-Math.atan2(ux,uy);
   const vx=B.x-B.px; tilt+=((Math.max(-22,Math.min(22,-vx*1.4)))-tilt)*.15;
