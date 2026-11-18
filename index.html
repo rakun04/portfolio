@@ -214,6 +214,77 @@ h2{font-family:var(--f-display);font-weight:500;letter-spacing:-.025em;line-heig
 .acard.pop{animation:pop .7s var(--ease) both;animation-delay:calc(var(--i,0)*55ms)}
 @keyframes pop{from{opacity:0;transform:translateY(28px) scale(.97)}}
 
+/* project management case studies */
+.pm-head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(20px,4vw,64px);align-items:end;margin-bottom:clamp(32px,5vw,60px)}
+.pm-head h2{font-size:clamp(34px,4.6vw,66px)}
+.pm-head h2 em{font-style:italic;color:var(--accent);font-weight:400}
+.pm-head p{margin:0;color:var(--muted);max-width:52ch}
+.case{border-top:1px solid var(--fg);padding-top:clamp(24px,3vw,36px);margin-bottom:clamp(56px,8vw,110px);display:grid;gap:clamp(22px,3vw,34px)}
+.case-top{display:grid;gap:8px}
+.case-n{color:var(--accent)}
+.case h3{font-family:var(--f-display);font-weight:500;font-size:clamp(30px,3.6vw,52px);letter-spacing:-.025em;line-height:1;margin:0}
+.case-sub{margin:0;color:var(--muted);max-width:60ch;font-size:17px}
+.chain{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);align-items:stretch;gap:0}
+.chain .node{border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0;background:var(--bg)}
+.chain .node span{color:var(--muted);font-size:10.5px}
+.chain .node b{font-family:var(--f-display);font-weight:500;font-size:19px;letter-spacing:-.01em;line-height:1.15}
+.chain .node.me{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 7%,var(--bg))}
+.chain .node.me span{color:var(--accent)}
+.chain .link{display:grid;place-items:center;padding:0 10px;color:var(--muted);font-size:10px;position:relative;min-width:84px}
+.chain .link::before{content:"";position:absolute;left:6px;right:6px;top:50%;border-top:1px dashed var(--muted)}
+.chain .link::after{content:"";position:absolute;right:6px;top:calc(50% - 4px);border:4px solid transparent;border-left:6px solid var(--muted);border-right:0}
+.chain .link span{position:relative;background:var(--bg);padding:0 6px;transform:translateY(-12px)}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:0}
+.meta div{min-width:0;border-left:1px solid var(--line);padding-left:14px}
+.meta dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.meta dd{margin:0;font-size:15px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.kpis div{min-width:0}
+.kpis strong{display:block;font-family:var(--f-display);font-weight:500;font-size:clamp(44px,5vw,72px);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.kpis span{color:var(--muted);font-size:14px}
+.chart{margin:0;border:1px solid var(--line);border-radius:6px;padding:18px 18px 12px;display:grid;gap:10px}
+.chart figcaption{display:flex;flex-direction:column;gap:2px}
+.chart figcaption b{font-weight:600}
+.chart figcaption span{color:var(--muted);font-size:14px}
+.chart-scroll{overflow-x:auto}
+.scurve{display:block;width:100%;max-width:1000px;min-width:560px;height:auto}
+.sc-grid{stroke:var(--line);stroke-width:1}
+.sc-ax{fill:var(--muted);font:11px var(--f-mono)}
+.sc-band{fill:color-mix(in srgb,var(--red) 8%,transparent)}
+.sc-bandt{fill:var(--red)}
+.sc-plan{fill:none;stroke:var(--muted);stroke-width:1.6;stroke-dasharray:5 4}
+.sc-area{fill:color-mix(in srgb,var(--accent) 10%,transparent)}
+.sc-act{fill:none;stroke:var(--accent);stroke-width:2.6;stroke-linejoin:round}
+.sc-dot{fill:var(--bg);stroke:var(--accent);stroke-width:1.6;transition:r .2s}
+.sc-dot:hover{r:5}
+.sc-end{fill:var(--accent)}
+.sc-lbl{font:600 12px var(--f-body)}
+.sc-lbl-a{fill:var(--accent)}.sc-lbl-p{fill:var(--muted)}
+.legend{display:flex;gap:18px;color:var(--muted);font-size:11px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:18px;height:0;border-top:2.5px solid var(--accent)}
+.legend i.lg-p{border-top:1.6px dashed var(--muted)}
+.how h4,.note h4{margin:0 0 12px;font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.steps{list-style:none;margin:0;padding:0;counter-reset:st;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
+.steps li{counter-increment:st;position:relative;padding:14px 0 14px 44px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
+.steps li::before{content:counter(st,decimal-leading-zero);position:absolute;left:0;top:14px;font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+.steps li b{color:var(--fg);font-weight:600}
+.note{background:var(--soft);border-radius:6px;padding:18px 20px}
+.note p{margin:0;max-width:75ch}
+.mods{display:flex;flex-wrap:wrap;gap:6px}
+.mods span{font-family:var(--f-mono);font-size:11px;border:1px solid var(--line);border-radius:99px;padding:4px 10px}
+.pm-foot{color:var(--muted);font-size:11px;margin:0}
+@media (max-width:860px){
+  .pm-head{grid-template-columns:1fr}
+  .chain{grid-template-columns:1fr}
+  .chain .link{min-height:34px;min-width:0}
+  .chain .link::before{left:50%;right:auto;top:4px;bottom:4px;border-top:0;border-left:1px dashed var(--muted)}
+  .chain .link::after{left:calc(50% - 4px);right:auto;top:auto;bottom:2px;border:4px solid transparent;border-top:6px solid var(--muted);border-bottom:0}
+  .chain .link span{transform:translateX(52px)}
+  .meta,.kpis{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr}
+}
+
 /* experience */
 .xp{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .xp li{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1fr);gap:24px;padding:24px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:background .3s}
@@ -324,6 +395,100 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
         <div><strong data-count="4">4</strong><span>sectors: gov, edu, enterprise, manufacturing</span></div>
         <div><strong data-count="18">18</strong><span>projects in the portfolio</span></div>
       </div>
+    </div>
+  </section>
+
+  <section class="sec wrap pm" id="pm" style="padding-top:0">
+    <div class="inner">
+      <div class="eyebrow mono">Project management</div>
+      <div class="pm-head">
+        <h2>Delivering for <em>government</em> clients, as the subcontractor in the middle</h2>
+        <p>Two programmes I ran as IT Project Manager at PT Talicahaya Buana, reporting to a main contractor while working day to day with the end users. I also owned the UI/UX, so design decisions never had to wait on a handoff.</p>
+      </div>
+
+      <article class="case">
+        <header class="case-top">
+          <span class="mono case-n">Case 01</span>
+          <h3>CELS Tahap II &amp; Smartclass</h3>
+          <p class="case-sub">Comprehensive e-learning and smart classrooms for Seskoad, the Indonesian Army staff and command college.</p>
+        </header>
+        <div class="chain" aria-label="Contract structure">
+          <div class="node"><span class="mono">End user</span><b>Seskoad (TNI AD)</b></div>
+          <div class="link mono" aria-hidden="true"><span>contracts</span></div>
+          <div class="node"><span class="mono">Main contractor · client</span><b>PT Akusara Bhumi Cakrawala</b></div>
+          <div class="link mono" aria-hidden="true"><span>subcontracts</span></div>
+          <div class="node me"><span class="mono">Subcontractor · my team</span><b>PT Talicahaya Buana</b></div>
+        </div>
+        <dl class="meta">
+          <div><dt>Period</dt><dd>Sep 2023 – Jan 2024 · 20 weeks</dd></div>
+          <div><dt>My role</dt><dd>IT Project Manager &amp; UI/UX Designer</dd></div>
+          <div><dt>Team</dt><dd>8 developers · 4 animators &amp; designers</dd></div>
+          <div><dt>Outcome</dt><dd>Completed and handed over, January 2024</dd></div>
+        </dl>
+        <div class="kpis">
+          <div><strong>13</strong><span>software modules: 8 CELS, 5 Smartclass</span></div>
+          <div><strong>49</strong><span>learning-content packages: 29 animated, 20 text</span></div>
+          <div><strong>184</strong><span>Smartclass issues logged; 94% accepted at the final QC pass</span></div>
+          <div><strong>7</strong><span>role-based user manuals at handover</span></div>
+        </div>
+        <figure class="chart">
+          <figcaption><b>Weighted progress, plan vs actual</b><span>From the S-curve I reported to the main contractor every week. Each task carries an agreed weight, so progress reflects how much of the contract is done.</span></figcaption>
+          <div class="chart-scroll"><svg viewBox="0 0 980 330" class="scurve" role="img" aria-label="S-curve: planned versus actual weighted progress over 20 weeks. Plan reached 100% in week 16; actual reached 100% in week 20 after change requests."><line x1="46" x2="830" y1="294.0" y2="294.0" class="sc-grid"/><text x="38" y="298.0" class="sc-ax" text-anchor="end">0%</text><line x1="46" x2="830" y1="226.0" y2="226.0" class="sc-grid"/><text x="38" y="230.0" class="sc-ax" text-anchor="end">25%</text><line x1="46" x2="830" y1="158.0" y2="158.0" class="sc-grid"/><text x="38" y="162.0" class="sc-ax" text-anchor="end">50%</text><line x1="46" x2="830" y1="90.0" y2="90.0" class="sc-grid"/><text x="38" y="94.0" class="sc-ax" text-anchor="end">75%</text><line x1="46" x2="830" y1="22.0" y2="22.0" class="sc-grid"/><text x="38" y="26.0" class="sc-ax" text-anchor="end">100%</text><line x1="46.0" x2="46.0" y1="294" y2="299" class="sc-grid"/><text x="46.0" y="314" class="sc-ax" text-anchor="middle">Sep</text><line x1="211.1" x2="211.1" y1="294" y2="299" class="sc-grid"/><text x="211.1" y="314" class="sc-ax" text-anchor="middle">Oct</text><line x1="376.1" x2="376.1" y1="294" y2="299" class="sc-grid"/><text x="376.1" y="314" class="sc-ax" text-anchor="middle">Nov</text><line x1="582.4" x2="582.4" y1="294" y2="299" class="sc-grid"/><text x="582.4" y="314" class="sc-ax" text-anchor="middle">Dec</text><line x1="747.5" x2="747.5" y1="294" y2="299" class="sc-grid"/><text x="747.5" y="314" class="sc-ax" text-anchor="middle">Jan</text><rect x="685.6" y="22" width="144.4" height="272" class="sc-band"/><text x="757.8" y="284" class="sc-ax sc-bandt" text-anchor="middle">change requests</text><polygon points="46.0,294.0 46.0,235.5 87.3,224.7 128.5,210.6 169.8,207.2 211.1,197.9 252.3,194.4 293.6,148.8 334.8,145.4 376.1,132.9 417.4,124.9 458.6,110.5 499.9,102.0 541.2,84.3 582.4,62.4 623.7,48.1 664.9,38.9 706.2,32.8 747.5,29.2 788.7,25.6 830.0,22.0 830.0,294.0" class="sc-area"/><polyline points="46.0,235.5 87.3,224.7 128.5,212.1 169.8,208.7 211.1,199.8 252.3,195.8 293.6,194.3 334.8,193.4 376.1,163.5 417.4,133.6 458.6,113.4 499.9,93.2 541.2,71.9 582.4,54.8 623.7,38.9 664.9,22.0 706.2,22.0 747.5,22.0 788.7,22.0 830.0,22.0" class="sc-plan"/><polyline points="46.0,235.5 87.3,224.7 128.5,210.6 169.8,207.2 211.1,197.9 252.3,194.4 293.6,148.8 334.8,145.4 376.1,132.9 417.4,124.9 458.6,110.5 499.9,102.0 541.2,84.3 582.4,62.4 623.7,48.1 664.9,38.9 706.2,32.8 747.5,29.2 788.7,25.6 830.0,22.0" class="sc-act"/><circle cx="46.0" cy="235.5" r="3" class="sc-dot"><title>Week 1: actual 21.5% · plan 21.5%</title></circle><circle cx="87.3" cy="224.7" r="3" class="sc-dot"><title>Week 2: actual 25.5% · plan 25.5%</title></circle><circle cx="128.5" cy="210.6" r="3" class="sc-dot"><title>Week 3: actual 30.7% · plan 30.1%</title></circle><circle cx="169.8" cy="207.2" r="3" class="sc-dot"><title>Week 4: actual 31.9% · plan 31.4%</title></circle><circle cx="211.1" cy="197.9" r="3" class="sc-dot"><title>Week 5: actual 35.3% · plan 34.6%</title></circle><circle cx="252.3" cy="194.4" r="3" class="sc-dot"><title>Week 6: actual 36.6% · plan 36.1%</title></circle><circle cx="293.6" cy="148.8" r="3" class="sc-dot"><title>Week 7: actual 53.4% · plan 36.7%</title></circle><circle cx="334.8" cy="145.4" r="3" class="sc-dot"><title>Week 8: actual 54.6% · plan 37.0%</title></circle><circle cx="376.1" cy="132.9" r="3" class="sc-dot"><title>Week 9: actual 59.2% · plan 48.0%</title></circle><circle cx="417.4" cy="124.9" r="3" class="sc-dot"><title>Week 10: actual 62.2% · plan 59.0%</title></circle><circle cx="458.6" cy="110.5" r="3" class="sc-dot"><title>Week 11: actual 67.5% · plan 66.4%</title></circle><circle cx="499.9" cy="102.0" r="3" class="sc-dot"><title>Week 12: actual 70.6% · plan 73.8%</title></circle><circle cx="541.2" cy="84.3" r="3" class="sc-dot"><title>Week 13: actual 77.1% · plan 81.7%</title></circle><circle cx="582.4" cy="62.4" r="3" class="sc-dot"><title>Week 14: actual 85.1% · plan 87.9%</title></circle><circle cx="623.7" cy="48.1" r="3" class="sc-dot"><title>Week 15: actual 90.4% · plan 93.8%</title></circle><circle cx="664.9" cy="38.9" r="3" class="sc-dot"><title>Week 16: actual 93.8% · plan 100.0%</title></circle><circle cx="706.2" cy="32.8" r="3" class="sc-dot"><title>Week 17: actual 96.0% · plan 100.0%</title></circle><circle cx="747.5" cy="29.2" r="3" class="sc-dot"><title>Week 18: actual 97.4% · plan 100.0%</title></circle><circle cx="788.7" cy="25.6" r="3" class="sc-dot"><title>Week 19: actual 98.7% · plan 100.0%</title></circle><circle cx="830.0" cy="22.0" r="5" class="sc-dot sc-end"><title>Week 20: actual 100.0% · plan 100.0%</title></circle><text x="842.0" y="27.0" class="sc-lbl sc-lbl-a">Actual 100%</text><text x="842.0" y="43.0" class="sc-ax">week 20 · handover</text><text x="664.9" y="14.0" class="sc-lbl sc-lbl-p" text-anchor="middle">Plan 100% · week 16</text><text x="330.7" y="174.3" class="sc-ax">ahead of plan</text></svg></div>
+          <div class="legend mono"><span><i class="lg-a"></i>Actual</span><span><i class="lg-p"></i>Plan</span></div>
+        </figure>
+        <div class="how">
+          <h4>How I ran it</h4>
+          <ol class="steps">
+            <li><b>Scope as a weighted WBS.</b> Broke the contract into 313+ tasks, each with a weight, so "percent done" meant the same thing to us, the contractor and the client.</li>
+            <li><b>Baseline and S-curve.</b> Planned the 20 weeks up front and tracked actual against plan every week.</li>
+            <li><b>Daily and weekly reporting.</b> Daily activity reports, a daily "actual vs plan" log and a weekly progress report for the main contractor covering completed work, work in progress, overall percentage and blockers.</li>
+            <li><b>Issue tracking and change control.</b> One QC log per module with reviewer, assignee and status. New requests from Korsis, Anevdik and the academic departments were logged as changes and scheduled on a completion timeline.</li>
+            <li><b>Content pipeline with 7 departments.</b> Material collection → lecturer interview → storyboard → production → internal QC → lecturer review → revision → upload to the LMS, on a published review calendar.</li>
+            <li><b>UAT and on-site testing.</b> Test scripts per module (8 UAT documents), then live testing in 8 broadcast classrooms and the auditorium.</li>
+            <li><b>Training and handover.</b> Trained lecturers in January 2024 and delivered manuals for lecturers, candidates, departments, Anevdik, Korsis, operators and alumni.</li>
+          </ol>
+        </div>
+        <div class="note">
+          <h4>What changed along the way</h4>
+          <p>We ran ahead of plan from week 3 to week 11. Late requests from end users, such as essay questions in pre- and post-tests, extra alumni features and cohort filters across personnel records, came in as change requests. Weeks 17–20 went to delivering them, and the system was handed over in January.</p>
+        </div>
+        <div class="mods">
+          <span>Personnel records</span><span>Education selection &amp; CAT</span><span>Grading &amp; personality assessment</span><span>Alumni management</span><span>Plagiarism detection</span><span>Virtual class</span><span>Class monitoring</span><span>Broadcast class</span><span>Class schedule</span><span>Animated &amp; text content</span>
+        </div>
+      </article>
+
+      <article class="case">
+        <header class="case-top">
+          <span class="mono case-n">Case 02</span>
+          <h3>Smart Class AAU · Phase III &amp; IV</h3>
+          <p class="case-sub">Hardware integration and software rollout for smart classrooms at the Indonesian Air Force Academy.</p>
+        </header>
+        <div class="chain" aria-label="Contract structure">
+          <div class="node"><span class="mono">End user</span><b>AAU (TNI AU)</b></div>
+          <div class="link mono" aria-hidden="true"><span>contracts</span></div>
+          <div class="node"><span class="mono">Main contractor · client</span><b>PT Heparindo Jaya Perkasa</b></div>
+          <div class="link mono" aria-hidden="true"><span>subcontracts</span></div>
+          <div class="node me"><span class="mono">Subcontractor · my team</span><b>PT Talicahaya Buana</b></div>
+        </div>
+        <dl class="meta">
+          <div><dt>Period</dt><dd>Aug 2022 – Oct 2023 · 2 phases + maintenance</dd></div>
+          <div><dt>My role</dt><dd>IT Project Manager</dd></div>
+          <div><dt>Sites</dt><dd>Viratama I, II and III buildings</dd></div>
+          <div><dt>Scope</dt><dd>Hardware, software, training, support</dd></div>
+        </dl>
+        <div class="how">
+          <ol class="steps">
+            <li><b>Room-by-room installation.</b> Integrated instructor podiums with projectors and smartboards, tracked daily per room, including items blocked on the main contractor's deliveries.</li>
+            <li><b>Software at the podium.</b> Rolled out the teaching stack per classroom, from SPSS and Multisim to Proteus, Python, Arduino and VS Code.</li>
+            <li><b>Acceptance testing.</b> Ran functional tests against agreed parameters for every hardware and software item, then UAT with the client.</li>
+            <li><b>Maintenance.</b> Scheduled checks of UPS units, network racks, 54 network switches and classroom audio between phases.</li>
+            <li><b>Phase IV training and fixes.</b> Five days of hardware and software training in October 2023, a software update in Viratama I, and an issue sweep across Viratama I–III.</li>
+            <li><b>Manuals.</b> Separate guides for instructors, operators and cadets, revised for Phase IV.</li>
+          </ol>
+        </div>
+      </article>
+
+      <p class="pm-foot mono">Original reports, trackers and UAT files stay under client confidentiality. Redacted templates are available on request.</p>
     </div>
   </section>
 
@@ -474,7 +639,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
       <div class="eyebrow mono">Experience</div>
       <ul class="xp">
         <li class="now"><time>2020 — Now</time><h3>IT Project Manager &amp; Product Consultant<small>Freelance · Sadaya Solutions</small></h3><p>Leading software implementation end to end: scope, timeline, risk and stakeholders, delivered Agile.</p></li>
-        <li class="now"><time>2019 — Now</time><h3>UI/UX Designer<small>PT Talicahaya Buana Group</small></h3><p>UX for enterprise, mobile and government services. Built design systems and cut task completion time by about 30%.</p></li>
+        <li class="now"><time>2019 — Now</time><h3>IT Project Manager &amp; UI/UX Designer<small>PT Talicahaya Buana Group</small></h3><p>Ran subcontracted delivery for military clients (Seskoad, AAU) under main contractors: weighted WBS, S-curve reporting, change control, UAT and training. Also led UX and design systems for enterprise, mobile and government products.</p></li>
         <li><time>2017 — 2019</time><h3>Lead Front-End Developer<small>PT Intek Sarana Sejahtera</small></h3><p>Responsive apps in HTML, CSS, JS, Bootstrap, Laravel and PHP, from Figma to production.</p></li>
         <li><time>2023</time><h3>B.Eng. Informatics Engineering<small>Universitas Kebangsaan Republik Indonesia</small></h3><p>GPA 3.56</p></li>
       </ul>
@@ -495,7 +660,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
   </section>
 </main>
 
-<nav class="nav" aria-label="Sections"><a href="#top">Home</a><a href="#about">About</a><a href="#work">Work</a><a href="#contact">Contact</a></nav>
+<nav class="nav" aria-label="Sections"><a href="#top">Home</a><a href="#about">About</a><a href="#pm">PM</a><a href="#work">Work</a><a href="#contact">Contact</a></nav>
 <div class="cur" id="cur"><span>Drag</span></div>
 </div>
 
@@ -611,7 +776,7 @@ function onScrollFx(){
   const n=Math.round(p*words.length); words.forEach((w,i)=>w.classList.toggle('on',i<n));
   const pr=portrait.parentElement.getBoundingClientRect(); if(pr.bottom>0&&pr.top<vh&&!RM){const q=(pr.top+pr.height/2-vh/2)/vh;portrait.style.transform=`translateY(${(q*-8).toFixed(2)}%) scale(1.06)`}
   // nav active
-  const ids=['top','about','work','contact'];let cur='top';ids.forEach(id=>{const el=document.getElementById(id);if(el.getBoundingClientRect().top<vh*.4)cur=id});
+  const ids=['top','about','pm','work','contact'];let cur='top';ids.forEach(id=>{const el=document.getElementById(id);if(el.getBoundingClientRect().top<vh*.4)cur=id});
   navLinks.forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+cur));
 }
 const navLinks=[...document.querySelectorAll('.nav a')];
